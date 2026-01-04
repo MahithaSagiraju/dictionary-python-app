@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dictionary App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Dictionary <button id="darkToggle" class="link-btn" title="Toggle dark mode">🌓</button></h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashes">
+        {% for category, msg in messages %}
+          <div class="flash flash-{{ category }}">{{ msg }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <form id="searchForm" action="/search" method="post">
+      <input name="word" id="word" placeholder="Enter an English word" autocomplete="off">
+      <button id="searchBtn" type="submit">Search</button>
+    </form>
+
+    <div id="status" class="status"></div>
+    <div id="spinner" class="spinner" aria-hidden="true"></div>
+
+    <section class="placeholders">
+      <h2>Try these words</h2>
+      <ul class="suggestions">
+        <li><form action="/search" method="post"><input name="word" type="hidden" value="apple"><button class="link-btn">apple</button></form></li>
+        <li><form action="/search" method="post"><input name="word" type="hidden" value="aberration"><button class="link-btn">aberration</button></form></li>
+        <li><form action="/search" method="post"><input name="word" type="hidden" value="serendipity"><button class="link-btn">serendipity</button></form></li>
+      </ul>
+    </section>
+    <section class="history">
+      <h2>Recent searches</h2>
+      <ul>
+        {% for h in history %}
+        <li>
+          <form action="/search" method="post" style="display:inline"><input name="word" type="hidden" value="{{h}}"><button class="link-btn">{{h}}</button></form>
+        </li>
+        {% else %}
+        <li>No recent searches</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="favorites">
+      <h2>Favorites</h2>
+      <ul>
+        {% for f in favorites %}
+          <li>
+            <a class="link-btn" href="{{ url_for('word_view', word=f) }}">{{ f }}</a>
+          </li>
+        {% else %}
+          <li>No favorites yet</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="wotd">
+      <h2>Word of the Day</h2>
+      <div class="wotd-card">
+        <form action="/search" method="post" style="display:inline"><input name="word" type="hidden" value="{{ wotd }}"><button class="link-btn">{{ wotd }}</button></form>
+        <p class="muted">Tap to view today's word</p>
+      </div>
+    </section>
+
+    <footer>
+      <small>Uses Free Dictionary API & Pexels (for images)</small>
+    </footer>
+  </main>
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

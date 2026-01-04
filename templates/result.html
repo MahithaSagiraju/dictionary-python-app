@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ word }} — Dictionary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <main class="container animate-in">
+    <a href="/" class="back">← Back</a>
+    <div class="result-head">
+      <h1>{{ word }}</h1>
+      <form action="/favorite" method="post" class="fav-form">
+        <input type="hidden" name="word" value="{{ word }}">
+        {% if is_favorite %}
+          <button class="link-btn">★ Remove favorite</button>
+        {% else %}
+          <button class="link-btn">☆ Add favorite</button>
+        {% endif %}
+      </form>
+    </div>
+
+    {% if entry.first_audio %}
+      <div class="audio">
+        <p>Pronunciation:</p>
+        <audio controls src="{{ entry.first_audio }}"></audio>
+      </div>
+    {% endif %}
+
+    <section class="meanings">
+      {% for m in entry.meanings %}
+        <div class="meaning">
+          <h3>{{ m.partOfSpeech }}</h3>
+          <ol>
+            {% for d in m.definitions %}
+              <li>
+                <strong>{{ d.definition }}</strong>
+                {% if d.example %}
+                  <div class="example">"{{ d.example }}"</div>
+                {% endif %}
+                {% if d.synonyms %}
+                  <div class="meta">Synonyms: {{ d.synonyms | join(', ') }}</div>
+                {% endif %}
+                {% if d.antonyms %}
+                  <div class="meta">Antonyms: {{ d.antonyms | join(', ') }}</div>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ol>
+        </div>
+      {% endfor %}
+    </section>
+
+    {% if entry.aggregated and (entry.aggregated.synonyms or entry.aggregated.antonyms or entry.aggregated.examples) %}
+    <section class="aggregated">
+      <h2>Quick summary</h2>
+      {% if entry.aggregated.examples %}
+        <div class="agg-examples">
+          <strong>Examples:</strong>
+          <ul>
+            {% for ex in entry.aggregated.examples %}
+              <li>"{{ ex }}"</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      {% if entry.aggregated.synonyms %}
+        <div class="agg-synonyms"><strong>Synonyms:</strong> {{ entry.aggregated.synonyms | join(', ') }}</div>
+      {% endif %}
+      {% if entry.aggregated.antonyms %}
+        <div class="agg-antonyms"><strong>Antonyms:</strong> {{ entry.aggregated.antonyms | join(', ') }}</div>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    {% if images %}
+    <section class="images">
+      <h2>Related images</h2>
+      <div class="grid">
+        {% for img in images %}
+          <img src="{{ img }}" alt="{{ word }}">
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+  </main>
+</body>
+</html>

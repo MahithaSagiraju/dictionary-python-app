@@ -1,0 +1,123 @@
+:root{
+	--bg:#f7fafc;
+	/* Cooler light theme: subtle blue-white hues */
+	/* Stronger cool-blue accents */
+	--bg-accent:linear-gradient(180deg, rgba(230,244,255,0.92), rgba(220,240,255,0.98));
+	/* Stronger blue-tinted card */
+	--card:#e9f4ff;
+	--muted:#6b7280;
+	--accent:#2563eb;
+	--accent-2:#1e40af;
+	--text:#0f172a;
+	--card-border:#e6eef8;
+	/* slightly more opaque glass for inputs and accents */
+	--glass: rgba(230,244,255,0.95);
+	/* stronger bluish border for cards in light theme */
+	--card-border: rgba(160,200,245,0.88);
+	/* slightly bluer accents */
+	--accent:#1b6ef0;
+	--accent-2:#174fc0;
+}
+*{box-sizing:border-box}
+/* Make fonts and layout responsive to screen size */
+html{font-size:clamp(14px, 1.2vw, 18px)}
+.container{max-width:1200px;width:min(96%,1200px);margin:0 auto;background:transparent;min-height:calc(100vh - 56px);display:block}
+
+body{font-family:'Inter', system-ui, Arial, sans-serif;background:var(--bg);background-image:var(--bg-accent);color:var(--text);margin:0;padding:28px;transition:background-color .35s ease,color .35s ease}
+h1,h2,h3{font-family:'Poppins', 'Inter', system-ui, Arial, sans-serif;margin:0}
+
+/* Heading weight & spacing tuning */
+h1{font-weight:800;letter-spacing:-0.6px;font-size:clamp(28px,2.8vw,40px);line-height:1.03}
+h2{font-weight:700;letter-spacing:-0.3px;font-size:clamp(18px,2.0vw,22px)}
+h3{font-weight:600;letter-spacing:0;font-size:clamp(16px,1.6vw,18px)}
+
+/* Emphasis in definitions */
+.meaning strong{font-weight:700;letter-spacing:0.1px}
+.meta, .example{letter-spacing:0.2px}
+.container{max-width:1200px;width:min(96%,1200px);margin:0 auto;background:transparent;min-height:calc(100vh - 56px);display:block}
+h1{margin:0 0 16px}
+form{display:flex;gap:8px;margin-bottom:12px}
+input[name="word"]{flex:1;padding:12px 14px;border:1px solid var(--card-border);border-radius:12px;background:linear-gradient(180deg, var(--glass), var(--card));box-shadow:0 6px 18px rgba(11,22,40,0.04);transition:box-shadow .18s ease,border-color .18s ease}
+input[name="word"]::placeholder{color:rgba(15,23,42,0.45)}
+input[name="word"]:focus{outline:none;border-color:var(--accent);box-shadow:0 8px 26px rgba(37,99,235,0.12)}
+button{background:linear-gradient(180deg,var(--accent),var(--accent-2));color:#fff;padding:10px 14px;border:0;border-radius:12px;cursor:pointer;box-shadow:0 10px 30px rgba(37,99,235,0.12);transition:transform .18s ease,box-shadow .18s ease,opacity .12s ease}
+button:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(37,99,235,0.16)}
+.placeholders, .history{margin-top:18px}
+.suggestions{list-style:none;padding:0;display:flex;gap:8px}
+.suggestions li{margin:0}
+.link-btn{background:transparent;color:var(--accent);border:1px solid transparent;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+.link-btn{transition:color .16s ease,transform .12s ease,background .12s ease}
+.link-btn:hover{transform:translateY(-2px);background:rgba(37,99,235,0.06)}
+.back{display:inline-block;margin-bottom:12px;color:var(--muted);text-decoration:none}
+.meanings{margin-top:12px}
+.meaning{background:linear-gradient(180deg,var(--card), rgba(251,253,255,0.96));padding:16px;border-radius:12px;margin-bottom:14px;border:1px solid var(--card-border)}
+.meaning{box-shadow:0 10px 30px rgba(12,40,80,0.04);transition:transform .22s cubic-bezier(.2,.9,.2,1),box-shadow .22s ease}
+.meaning:hover{transform:translateY(-8px);box-shadow:0 28px 56px rgba(12,40,80,0.08)}
+.example{color:var(--muted);margin-top:6px}
+.meta{font-size:13px;color:var(--muted);margin-top:6px}
+.images .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:16px}
+.images img{width:100%;height:180px;object-fit:cover;border-radius:10px}
+.images img{transition:transform .45s cubic-bezier(.2,.9,.2,1),filter .35s ease}
+.images img:hover{transform:scale(1.08);filter:brightness(1.03)}
+@media(max-width:600px){.container{padding:12px} .images img{height:90px}}
+.status{min-height:24px}
+
+/* Flash messages */
+.flashes{margin-bottom:12px}
+.flash{padding:8px 10px;border-radius:6px;margin-bottom:6px}
+.flash-warning{background:#fff7ed;color:#92400e;border:1px solid #fed7aa}
+.flash-danger{background:#fff1f2;color:#991b1b;border:1px solid #fecaca}
+.flash-success{background:#ecfdf5;color:#065f46;border:1px solid #bbf7d0}
+
+/* Spinner */
+.spinner{width:32px;height:32px;border-radius:50%;border:4px solid rgba(12,20,30,0.06);border-top-color:var(--accent);animation:spin 1s linear infinite;display:none;margin-top:8px}
+.spinner[aria-hidden="false"]{display:inline-block}
+
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+/* Aggregated summary */
+.aggregated{margin-top:14px;background:var(--card);padding:12px;border-radius:8px;border:1px solid #e6eef8}
+.agg-examples ul{margin:6px 0 0 18px}
+
+/* Small improvements for mobile */
+@media(max-width:900px){
+	html{font-size:clamp(13px,1.8vw,16px)}
+	.images img{height:120px}
+	.container{padding:12px}
+}
+
+@media(max-width:520px){
+	body{padding:12px}
+	input[name="word"]{padding:8px}
+	button{padding:8px 10px}
+	.images img{height:90px}
+	.result-head{flex-direction:column;align-items:flex-start;gap:8px}
+}
+
+/* Dark theme */
+.dark{--bg:#0b1220;--card:#0f1724;--muted:#9aa6b2;--accent:#60a5fa;color:#e6eef8}
+.dark body{background:var(--bg)}
+.dark .meaning{background:#0b1320;border-color:#172033}
+.dark .link-btn{color:var(--accent)}
+
+.result-head{display:flex;align-items:center;gap:12px}
+.fav-form{margin:0}
+.wotd-card{background:var(--card);padding:10px;border-radius:8px;border:1px solid #e6eef8;margin-top:8px}
+.muted{color:var(--muted);font-size:13px}
+
+/* Entrance animations */
+.animate-in{opacity:0;transform:translateY(8px);animation:entrance .48s ease forwards}
+@keyframes entrance{to{opacity:1;transform:none}}
+
+/* Nice subtle shimmer for headers */
+.container > h1{display:flex;align-items:center;gap:12px;font-weight:700}
+.container > h1::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(15,23,42,0.06),transparent);margin-left:12px}
+
+/* Dark theme tweaks */
+.dark{--bg:#071022;--card:#0e1724;--muted:#9aa6b2;--accent:#60a5fa;--text:#e6eef8;--card-border:rgba(255,255,255,0.04)}
+.dark .wotd-card{border-color:var(--card-border)}
+.dark .container > h1::after{background:linear-gradient(90deg,transparent,var(--card-border),transparent)}
+
+/* Micro-interactions */
+.audio audio{width:260px}
+
