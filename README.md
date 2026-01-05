@@ -1,67 +1,108 @@
-# Dictionary App (Flask)
+📘 Dictionary App (Flask)
 
-A small Python (Flask) dictionary web app that uses the Free Dictionary API and Pexels for images.
+A lightweight Python Flask dictionary web application that fetches word meanings from the Free Dictionary API and displays related images using the Pexels API.
 
-Features
-- Search English words
-- Definitions, part of speech, examples
-- Synonyms & antonyms (if available)
-- Pronunciation audio (when provided by the API)
-- Related images via Pexels
-- Simple search history stored in session
+🚀 Features
 
-Quick start
-1. Create a virtualenv and install dependencies:
+🔍 Search English words
 
-```bash
+📖 Definitions, part of speech & usage examples
+
+🔁 Synonyms & antonyms (if available)
+
+🔊 Pronunciation audio (when provided)
+
+🖼️ Related images via Pexels API
+
+🕘 Simple search history using Flask sessions
+
+🛠️ Tech Stack
+
+Backend: Python, Flask
+
+APIs: Free Dictionary API, Pexels API
+
+Deployment: Docker, Gunicorn
+
+Environment: WSL 2 (Windows)
+
+⚡ Quick Start (Local – Without Docker)
+1️⃣ Clone the repository
+git clone https://github.com/MahithaSagiraju/dictionary-python-app.git
+cd dictionary-python-app
+
+2️⃣ Create virtual environment
 python -m venv venv
 venv\Scripts\activate   # Windows
+
+3️⃣ Install dependencies
 pip install -r requirements.txt
-```
 
-2. Copy `.env.example` to `.env` and set `PEXELS_API_KEY` and `SECRET_KEY`.
+4️⃣ Environment variables
 
-3. Run the app:
+Copy .env.example to .env and set:
 
-```bash
+PEXELS_API_KEY=your_pexels_api_key
+SECRET_KEY=your_secret_key
+
+5️⃣ Run the app
 python app.py
-```
 
-Open http://127.0.0.1:5000 and try words like `apple`, `aberration`, `serendipity`.
 
-Notes
-- Pexels requires an API key (free signup). If no key is set, image section is omitted.
-- This scaffold covers Tasks 1 and basic UI for Task 2. Next steps: richer parsing for synonyms/antonyms, better UI/UX, and deployment.
+📍 Open: http://127.0.0.1:5000
 
-Running tests
-1. Install pytest: `pip install pytest`
-2. Run tests from project root:
+Try words like: apple, aberration, serendipity
 
-```bash
+🐳 Docker Deployment (Recommended)
+1️⃣ Build Docker image
+docker build -t dictionary-app .
+
+2️⃣ Run Docker container
+docker run --env-file .env -p 5000:5000 dictionary-app
+
+
+📍 App will be available at:
+http://localhost:5000
+
+✔ Runs using Gunicorn (production WSGI server)
+
+🧪 Running Tests
+
+Install pytest:
+
+pip install pytest
+
+
+Run tests:
+
 pytest -q
-```
 
-The UI snapshot from the tests is saved to `tests/snapshots/aberration.html` for manual inspection.
 
-Deployment (production-ready)
-1. Install a WSGI server, e.g. `gunicorn`:
+📄 UI snapshot is saved at:
 
-```bash
-pip install gunicorn
-```
+tests/snapshots/aberration.html
 
-2. Run with gunicorn (on Linux/WSL or a server):
+🌐 Production Notes
 
-```bash
-gunicorn -w 4 -b 0.0.0.0:8000 app:app
-```
+Pexels API key is required for images
 
-3. (Optional) For Heroku-like deploys, add a `Procfile` with:
+If no key is provided, image section is skipped
 
-```
-web: gunicorn app:app
-```
+Set a strong SECRET_KEY for session security
 
-Notes on static hosting and environment
-- Ensure `PEXELS_API_KEY` is set in environment or `.env`.
-- Set `SECRET_KEY` to a secure value for production sessions.
+Gunicorn is used for production-ready deployment
+
+📌 Future Enhancements
+
+Advanced synonym/antonym parsing
+
+Improved UI/UX
+
+Cloud deployment (AWS / Render / Railway)
+
+User authentication
+
+👩‍💻 Author
+
+Mahitha Sagiraju
+GitHub: https://github.com/MahithaSagiraju
